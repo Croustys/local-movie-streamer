@@ -11,20 +11,27 @@
         height: 100vh;
         background-color: rgb(14, 14, 14);
         display: flex;
+        flex-direction: column;
         margin: auto;
         align-items: center;
         justify-content: center;
       }
+      #prev-next-wrapper > a:any-link {
+        color: white;
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
-    <div id="prev-next-wrapper"></div>
-    <video id="videoPlayer" width="70%" controls autoplay muted="false">
+    <div id="prev-next-wrapper">
+      <a href="">asd</a>
+      <a href="">asd</a>
+    </div>
+    <video id="videoPlayer" width="90%" controls autoplay muted="false">
       <source id="vsource" src="/watch" type="video/mp4" />
     </video>
-    <button type="" value=""></button>
     <script>
-      const DOMAIN = `http://watch.barabasakos.hu`
+      const DOMAIN = `http://watch.barabasakos.hu`;
 
       const path = window.location.pathname.split("/");
       const [, , ...videoPath] = path;
