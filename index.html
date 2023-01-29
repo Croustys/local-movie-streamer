@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Streaming With Node</title>
+    <style>
+      body {
+        max-width: 100%;
+        height: 100vh;
+        background-color: rgb(14, 14, 14);
+        display: flex;
+        margin: auto;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="prev-next-wrapper"></div>
+    <video id="videoPlayer" width="70%" controls autoplay muted="false">
+      <source id="vsource" src="/watch" type="video/mp4" />
+    </video>
+    <button type="" value=""></button>
+    <script>
+      const DOMAIN = `http://watch.barabasakos.hu`
+
+      const path = window.location.pathname.split("/");
+      const [, , ...videoPath] = path;
+      const videoSrc = videoPath.join("/");
+      const video = document.getElementById("vsource");
+      video.src = `${DOMAIN}/watch/${videoSrc}`;
+
+      const div = document.getElementById("prev-next-wrapper");
+      fetch(`${DOMAIN}/next/${videoSrc}`)
+        .then((resp) => resp.json())
+        .then((data) => {
+          if (data.prev) {
+            const prevBtn = document.createElement("a");
+            prevBtn.href = `${DOMAIN}/id/${data.prev}`;
+            prevBtn.textContent = "Previous";
+            div.appendChild(prevBtn);
+          }
+          if (data.next) {
+            const nextBtn = document.createElement("a");
+            nextBtn.href = `${DOMAIN}/id/${data.next}`;
+            nextBtn.textContent = "Next";
+            div.appendChild(nextBtn);
+          }
+        });
+    </script>
+  </body>
+</html>
